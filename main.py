@@ -79,7 +79,7 @@ def loot():
     log.append("[bold green]Rewards collected [/]")
              
 def heal():
-    if p1.inventory_list["healing potion"] > 0 or p1.health < 100  :
+    if p1.inventory_list["healing potion"] > 0 and p1.health < 100  :
         health_potion.heal(p1)
         p1.inventory_list["healing potion"] = p1.inventory_list["healing potion"] - 1
         log.append("[bold green]Heal succsefuly ![/]")

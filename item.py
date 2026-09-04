@@ -14,7 +14,7 @@ class Consumebale(Item) :
         self.health_add = heal_value
         self.base_dmg_add = base_dmg_add
     def heal (self,h) : 
-        h.health = h.health + health_potion.health_add 
+        h.health = h.health + self.health_add 
         h.health = min(100,h.health)
 sword = Weapon("sword",50,10)
 gold = Item("gold",10)

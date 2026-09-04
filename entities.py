@@ -43,26 +43,34 @@ class Player(Sprite) :
             self.xp = self.xp - self.lvl_req
             self.lvl_req = self.lvl_req + 10
 
+    def player_attack(self,target) :
+        log.append("[bold green underline]Hit Target ![/]")
+        target.health = target.health - ((self.base_dmg+(self.level*0.1)) + self.weapon.damage)
+        target.health = max(target.health,0)
+        
+    def counter_attack(self,target,) :
+        d = choice([0,1,2,3])
+        if d > 0 :
+            log.append("[bold red underline]You got Hit ![/]")
+        else :
+            log.append("[bold blue]You Dogede Attack[/]")
+        self.health = self.health - ((target.base_dmg+(self.level*0.1))*d)
+        self.health = max(self.health,0)
+        log.append(f"[bold]Enemy Health : [/]{target.health:.1f}")
+
+    def target_die (self,target) :
+        self.xp = self.xp + target._xp
+        self.level_up()
+        log.append(f"[bold cyan]{self.place["enemy"]} is dead[/]")
+        del target
+        self.place["enemy"] = None
+
     def attack(self,target) :
+        self.player_attack(target)
         if target.health > 0 :
-            log.append("[bold green underline]Hit Target ![/]")
-            target.health = target.health - ((self.base_dmg+(self.level*0.1)) + self.weapon.damage)
-            target.health = max(target.health,0)
-            ### there is a chance that the target will attack
-            d = choice([0,1,2,3])
-            if d > 0 :
-                log.append("[bold red underline]You got Hit ![/]")
-            else :
-                log.append("[bold blue]You Dogede Attack[/]")
-            self.health = self.health - ((target.base_dmg+(self.level*0.1))*d)
-            self.health = max(self.health,0)
-            log.append(f"[bold]Enemy Health : [/]{target.health:.1f}")
+            self.counter_attack(target)
             if target.health == 0 :
-                self.xp = self.xp + target._xp
-                self.level_up()
-                log.append(f"[bold cyan]{self.place["enemy"]} is dead[/]")
-                del target
-                self.place["enemy"] = None
+                self.target_die(target)
             elif self.health == 0 :
                 console.print("[bold red underline]YOU DIED[/]")
                 quit()
