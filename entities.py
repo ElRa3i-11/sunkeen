@@ -23,6 +23,8 @@ class Sprite :
         table.add_row("Level",f"{self.level}")
         table.add_row("Xp",f"{self.xp}")
         table.add_row("Weapon",f"{self.weapon}")
+        table.add_row("gold",f"{self.inventory_list["gold"]}")
+        table.add_row("healing potion",f"{self.inventory_list["healing potion"]}")
 
         console.print(table)
 class Player(Sprite) :
@@ -43,7 +45,7 @@ class Player(Sprite) :
 
     def attack(self,target) :
         if target.health > 0 :
-            log.append("[bold magenta underline]Hit Target ![/]")
+            log.append("[bold green underline]Hit Target ![/]")
             target.health = target.health - ((self.base_dmg+(self.level*0.1)) + self.weapon.damage)
             target.health = max(target.health,0)
             ### there is a chance that the target will attack
