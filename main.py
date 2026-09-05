@@ -5,17 +5,13 @@ from item import sword , gold , health_potion
 from entities import Player 
 from shared import log , console 
 import readchar
-
+from ascii_map import MAP
 
 os.system('clear')
 console.print("\n\nLoading ..... ",style="bold blue",justify="center")
-import pywhatkit as pwk
-### image to ascii
-if __name__ == "__main__":
-    input_image = "asciimap.png"
-    output_image = "ascii_map"
 
-    pwk.image_to_ascii_art(input_image, output_image)
+### image to ascii
+
 
 
 
@@ -44,8 +40,7 @@ def redraw(view):
             console.print(line)
         console.print("-" * 40)
     elif view == "map" :
-        with open(output_image + ".txt", "r") as f:
-            print(f.read())
+            print(MAP)
     else :
         p1.display_stats()
 def health_bar(current, max_hp, length=20):
