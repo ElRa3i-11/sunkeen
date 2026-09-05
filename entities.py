@@ -19,7 +19,6 @@ class Sprite :
         table.add_column("Value",style="bold cyan")
 
         table.add_row("Name",f"{self.name}")
-        table.add_row("Health",f"{self.health:.0f}")
         table.add_row("Level",f"{self.level}")
         table.add_row("Xp",f"{self.xp}")
         table.add_row("Weapon",f"{self.weapon}")
@@ -44,36 +43,35 @@ class Player(Sprite) :
             self.lvl_req = self.lvl_req + 10
 
     def player_attack(self,target) :
-        log.append("[bold green underline]Hit Target ![/]")
+        log.append("[bold green underline] -> Hit Target ![/]")
         target.health = target.health - ((self.base_dmg+(self.level*0.1)) + self.weapon.damage)
         target.health = max(target.health,0)
         
     def counter_attack(self,target,) :
         d = choice([0,1,2,3])
         if d > 0 :
-            log.append("[bold red underline]You got Hit ![/]")
+            log.append("[bold red underline] -> You got Hit ![/]")
         else :
-            log.append("[bold blue]You Dogede Attack[/]")
+            log.append("[bold blue] -> You Dogede Attack[/]")
         self.health = self.health - ((target.base_dmg+(self.level*0.1))*d)
         self.health = max(self.health,0)
-        log.append(f"[bold]Enemy Health : [/]{target.health:.1f}")
+        if self.health == 0 :
+            console.print("[bold red underline] -> YOU DIED[/]")
+            quit()
 
     def target_die (self,target) :
         self.xp = self.xp + target._xp
         self.level_up()
-        log.append(f"[bold cyan]{self.place["enemy"]} is dead[/]")
-        del target
+        log.append(f"[bold cyan] -> {self.place["enemy"]} is dead[/]")
         self.place["enemy"] = None
 
     def attack(self,target) :
         self.player_attack(target)
         if target.health > 0 :
             self.counter_attack(target)
-            if target.health == 0 :
-                self.target_die(target)
-            elif self.health == 0 :
-                console.print("[bold red underline]YOU DIED[/]")
-                quit()
+        elif target.health <= 0 :
+            self.target_die(target)
+           
 class Enemy(Sprite) :
     def __init__(self, name, health, base_dmg, level, reward,_xp,max_health) -> None:
         super().__init__(name, health, base_dmg, level,max_health)

@@ -4,6 +4,7 @@ from Rooms import ROOMS , current_room_name
 from item import sword , gold , health_potion
 from entities import Player 
 from shared import log , console 
+import readchar
 
 
 os.system('clear')
@@ -27,17 +28,17 @@ def reward_list():
 ## clear then rewrite all the text in the terminal
 def redraw(view):
     os.system('clear')
-    console.print(pyfiglet.figlet_format("The Sunkeen ", justify="center"), style="bold")
-    console.print("[bold italic magenta] Commands: movement:{up, down, right, left}, attack(a),stats(s), map(m), heal(h), collect(c)[/]")
-    console.print(f"\n\n[bold]Current room:[/] [bold red] {current_room_name}[/]   [bold]Enemy:[/]  [bold red]{p1.place['enemy']}[/]")
-    console.print(f"[bold]Room Rewards:[/] [bold red] {reward_list()}[/]")
+    console.print(pyfiglet.figlet_format("The Sunkeen ", justify="center", width=150,))
+    console.print("[bold italic magenta] Commands:[WASD] Movement [A] Attack [S] Stats [M] Map [H] Heal [C] Collect [/]",justify="center")
+    console.print(f"\n\n[bold]Current room:[/] [bold blue] {current_room_name}[/]   [bold]Enemy:[/]  [bold blue]{p1.place['enemy']}[/]",justify="center")
+    console.print(f"[bold]Room Rewards:[/] [bold blue] {reward_list()}[/]",justify="center")
     console.print("-" * 40)
     console.print("[bold reverse]Log :[/]")
     console.print("-" * 5)
-    console.print(f"[bold]Your HP:[/] {health_bar(p1.health, p1.max_health)}")
+    console.print(f"[bold]Your HP:[/] {health_bar(p1.health, p1.max_health)}",)
     if p1.place["enemy"] is not None:
         e = p1.place["enemy"]
-        console.print(f"\n[bold]{e.name} HP:[/] {health_bar(e.health, e.max_health)}\n")
+        console.print(f"\n[bold]{e.name} HP:[/] {health_bar(e.health, e.max_health)}\n",)
     if view == "log" :
         for line in log:
             console.print(line)
@@ -76,7 +77,7 @@ def loot():
                     X = quantity1 + quantity2
                     p1.inventory_list[item1] = X
                     p1.place["loot"][item1] = 0
-    log.append("[bold green]Rewards collected [/]")
+    log.append("[bold green] -> Rewards collected [/]")
              
 def heal():
     if p1.inventory_list["healing potion"] > 0 and p1.health < 100  :
@@ -91,10 +92,10 @@ def action_place(p,s) :
         p1.place = ROOMS[p1.place["exit"][p]]
         global current_room_name
         current_room_name = p1.place["name"]
-        log.append(f"you are now in [bold cyan]!! {current_room_name} !![/]")
+        log.append(f"[bold] -> Moved into [bold cyan] {current_room_name} [/]")
 
     else :
-        log.append("Path is Blocked")
+        log.append("[bold italic red] -> Path is Blocked [/]")
     redraw(s)
 ##
 
@@ -103,26 +104,26 @@ class Game () :
     def run(self):
         redraw("log")
         while p1.health > 0 :
-            action = input(":")
-            if action == "attack" or action == "a" :
+            key = readchar.readkey()
+            if key == "a" :
                 if  p1.place["enemy"] is not None :
                     p1.attack(p1.place["enemy"])
                 else :
-                    log.append("this room is empty ")
+                    log.append("[bold] No enemies in room [/]")
                 redraw("log")
-            elif action in {"up","down","left","right"} :
-                action_place(action,"log")
-            elif action == "stats" or action == "s" :
+            elif key in {"z","s","q","d"} :
+                action_place(key,"log")
+            elif key == "e" :
                 redraw("stats")
-            elif action == "map" or action == "m" :
+            elif key == "m" :
                 redraw("map")
-            elif action == "heal" or action == "h" :
+            elif key == "h":
                 heal()
-            elif action == "collect" or action == "c" :
+            elif key == "c" :
                 loot()
                 redraw("log")
             else :
-                log.append("INVALID COMMAND")
+                log.append("[bold italic red underline]INVALID COMMAND[/]")
                 redraw("log") 
 
 

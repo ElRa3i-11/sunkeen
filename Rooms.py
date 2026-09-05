@@ -12,10 +12,10 @@ ROOMS = {
             "healing potion":1,
         },
         "exit" : {
-            "left" : "Hallway",
-            "up" : None,
-            "down":None,
-            "right":None
+            "q" : "Hallway",
+            "z" : None,
+            "s":None,
+            "d":None
         }
     },
     "Hallway":{
@@ -26,10 +26,10 @@ ROOMS = {
             "healing potion":0,
         },
         "exit" : {
-            "left" :"Hallway2",
-            "up" : "Treasury room" ,
-            "down":"Ferdinand room",
-            "right":"starting room"
+            "q" :"Hallway2",
+            "z" : "Treasury room" ,
+            "s":"Ferdinand room",
+            "d":"starting room"
         }
     },
     "Hallway2":{
@@ -40,10 +40,10 @@ ROOMS = {
             "healing potion":0,
         },
         "exit" : {
-            "left" :"Hallway3",
-            "up" : "Hallway4" ,
-            "down":None,
-            "right":"Hallway",
+            "q" :"Hallway3",
+            "z" : "Hallway4" ,
+            "s":None,
+            "d":"Hallway",
         }
     },
     "Hallway3":{
@@ -55,10 +55,10 @@ ROOMS = {
             "healing potion":0,
         },
         "exit" : {
-            "left" :None,
-            "up" : None,
-            "down":"Minotaur room",
-            "right":"Hallway2",
+            "q":None,
+            "z" : None,
+            "s":"Minotaur room",
+            "d":"Hallway2",
         }
 
     },
@@ -70,10 +70,10 @@ ROOMS = {
             "healing potion":0,
         },
         "exit" : {
-            "left" :"Manticore room",
-            "up" : None ,
-            "down":"Hallway2",
-            "right":None,
+            "q":"Manticore room",
+            "z" : None ,
+            "s":"Hallway2",
+            "d":None,
         }
     },
     "Ferdinand room":{
@@ -84,10 +84,10 @@ ROOMS = {
             "healing potion":1,
         },
         "exit" : {
-            "left" :None,
-            "up" : "Hallway" ,
-            "down":None,
-            "right":None
+            "q":None,
+            "z" : "Hallway" ,
+            "s":None,
+            "d":None
         }
     },
     "Treasury room":{
@@ -98,24 +98,24 @@ ROOMS = {
             "healing potion":1,
         },
         "exit" : {
-            "left" :None,
-            "up" : None ,
-            "down":"Hallway",
-            "right":None
+            "q":None,
+            "z" : None ,
+            "s":"Hallway",
+            "d":None
         }
     },
     "Minotaur room":{
         "name" : "Minotaur Room",
         "enemy" : minotaur,
         "loot" : {
-            "gold" : 200,
+            "gold" : 300,
             "healing potion":0,
         },
         "exit" : {
-            "left" :None,
-            "up" : None ,
-            "down":"Hallway3",
-            "right":None
+            "q":None,
+            "z" : "Hallway3" ,
+            "s":None,
+            "d":None
         }
 
     },
@@ -127,10 +127,10 @@ ROOMS = {
             "healing potion":1,
         },
         "exit" : {
-            "left" :"Hallway4",
-            "up" : None ,
-            "down":None,
-            "right":None
+            "q":"Hallway4",
+            "z" : None ,
+            "s":None,
+            "d":None
         }
 
     }
