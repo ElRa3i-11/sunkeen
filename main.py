@@ -10,10 +10,6 @@ from ascii_map import MAP
 os.system('clear')
 console.print("\n\nLoading ..... ",style="bold blue",justify="center")
 
-### image to ascii
-
-
-
 
 def reward_list():
     player_loot = p1.place["loot"]
@@ -21,7 +17,7 @@ def reward_list():
     for i, x in player_loot.items():
         Y = Y + i + " " + str(x) + ", "
     return Y
-## clear then rewrite all the text in the terminal
+## clear then rewrite all the text in the terminals
 def redraw(view):
     os.system('clear')
     console.print(pyfiglet.figlet_format("The Sunkeen ", justify="center", width=150,))
